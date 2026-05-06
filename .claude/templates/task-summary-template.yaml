@@ -1,0 +1,17 @@
+template:
+  id: zen-summary
+  output:
+    format: markdown
+
+sections:
+  - id: core
+    content: |
+      # {{task_name}}
+      `{{date}}`
+      
+      **Deliverable**: {{outcome_one_liner}}
+      **Impact**: {{insight_one_liner}}
+
+  - id: changes
+    title: Changes
+    template: "{{file_list_compact}}"

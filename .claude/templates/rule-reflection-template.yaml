@@ -1,0 +1,9 @@
+template:
+  id: zen-rule
+  description: Append mostly.
+
+sections:
+  - id: rule-line
+    # 强制格式： - **Scope**: Insightful Rule
+    template: |
+      - **{{scope}}**: {{insightful_rule}}

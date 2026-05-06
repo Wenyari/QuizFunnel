@@ -1,0 +1,14 @@
+template:
+  id: zen-snippet
+
+sections:
+  - id: header
+    content: |
+      # {{function_name}}
+      > **Insight**: {{one_sentence_insight}}
+
+  - id: code
+    template: |
+      ```{{tech_stack}}
+      {{code_content}}
+      ```

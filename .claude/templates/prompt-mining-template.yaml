@@ -1,0 +1,12 @@
+template:
+  id: zen-prompt
+
+sections:
+  - id: card
+    content: |
+      # {{prompt_name}}
+      > **Tag**: #{{tag}}
+      
+      ```markdown
+      {{raw_prompt}}
+      ```
