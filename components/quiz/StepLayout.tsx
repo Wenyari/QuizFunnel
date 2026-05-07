@@ -14,7 +14,7 @@ export function StepLayout({ title, subtitle, children }: StepLayoutProps) {
   return (
     <div className="flex flex-col flex-1 min-h-0">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-2">
+        <h1 className="text-3xl font-bold font-outfit tracking-tight text-gray-900 dark:text-white mb-2">
           {title}
         </h1>
         {subtitle && (

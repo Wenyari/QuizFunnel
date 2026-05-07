@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuizStore } from '@/store/useQuizStore';
 
 const getMessage = (p: number) => {
-  if (p < 20) return '初始化分析引擎...';
-  if (p < 40) return '检索目标人群与体型特征数据库...';
-  if (p < 60) return '正在分析您的多维度身体指标...';
-  if (p < 80) return '运行深度特征匹配算法...';
-  if (p < 95) return '对比样本，构建个人代谢数字模型...';
-  return '正在生成高精度专属健康方案...';
+  if (p < 20) return 'Initializing analysis engine...';
+  if (p < 40) return 'Searching body profile & population database...';
+  if (p < 60) return 'Analyzing your multi-dimensional biometric indicators...';
+  if (p < 80) return 'Running deep feature-matching algorithm...';
+  if (p < 95) return 'Cross-referencing samples, building metabolic model...';
+  return 'Generating your high-precision personalized plan...';
 };
 
 /**

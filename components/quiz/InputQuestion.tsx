@@ -6,6 +6,8 @@ import { useQuizStore, Unit } from '@/store/useQuizStore';
 import { calculateBMI } from '@/utils/calculation';
 import { cn } from '@/utils/cn';
 
+import { validateField } from '@/utils/validation';
+
 interface InputQuestionProps {
   field: 'age' | 'height' | 'weight' | 'targetWeight';
 }
@@ -59,17 +61,19 @@ export const InputQuestion: React.FC<InputQuestionProps> = ({ field }) => {
     setField(field, cleanVal);
   };
 
-  // Real-time BMI calculation and warning
-  let warningMessage = '';
-  if (field === 'weight' || field === 'targetWeight') {
-    const w = parseFloat(value);
+  // Validation and warning logic
+  let warningMessage = validateField(field, value, unit);
+
+  // BMI Warning (Soft warnings, only if no hard error exists)
+  if (!warningMessage && (field === 'weight' || field === 'targetWeight')) {
+    const numValue = parseFloat(value);
     const h = parseFloat(heightStr);
-    if (!isNaN(w) && w > 0 && !isNaN(h) && h > 0) {
-      const bmi = calculateBMI(w, h, unit);
+    if (!isNaN(numValue) && numValue > 0 && !isNaN(h) && h > 0) {
+      const bmi = calculateBMI(numValue, h, unit);
       if (bmi < 18.5) {
-        warningMessage = `⚠️ 当前 BMI 为 ${bmi.toFixed(1)}，低于正常范围 (18.5 - 24.9)。`;
+        warningMessage = `ℹ️ Your current BMI is ${bmi.toFixed(1)}, which is below the healthy range (18.5 – 24.9).`;
       } else if (bmi >= 25) {
-        warningMessage = `⚠️ 当前 BMI 为 ${bmi.toFixed(1)}，超出正常范围 (18.5 - 24.9)。`;
+        warningMessage = `ℹ️ Your current BMI is ${bmi.toFixed(1)}, which exceeds the healthy range (18.5 – 24.9).`;
       }
     }
   }
@@ -77,7 +81,7 @@ export const InputQuestion: React.FC<InputQuestionProps> = ({ field }) => {
   let unitLabel = '';
   let showToggle = false;
   if (field === 'age') {
-    unitLabel = '岁';
+    unitLabel = 'yrs';
     showToggle = false;
   } else if (field === 'height') {
     unitLabel = unit === 'metric' ? 'cm' : 'in';
@@ -96,10 +100,11 @@ export const InputQuestion: React.FC<InputQuestionProps> = ({ field }) => {
           value={value}
           onChange={handleChange}
           className={cn(
-            "flex h-16 w-full rounded-2xl border-2 bg-white px-6 py-4 pr-24 text-2xl font-bold placeholder:text-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
-            warningMessage ? "border-red-400" : "border-gray-200 focus:border-gray-300"
+            "flex h-16 w-full rounded-2xl border-2 bg-white px-6 py-4 pr-24 text-2xl font-bold font-outfit placeholder:text-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
+            warningMessage.startsWith('⚠️') ? "border-red-400" : 
+            warningMessage.startsWith('ℹ️') ? "border-blue-300" : "border-gray-200 focus:border-gray-300"
           )}
-          placeholder="请输入数值"
+          placeholder="Enter a value"
         />
         {showToggle ? (
           <button
@@ -125,7 +130,12 @@ export const InputQuestion: React.FC<InputQuestionProps> = ({ field }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-6 p-4 rounded-xl bg-red-50 text-sm text-red-600 font-medium w-full max-w-sm border border-red-100"
+            className={cn(
+              "mt-6 p-4 rounded-xl text-sm font-medium w-full max-w-sm border",
+              warningMessage.startsWith('⚠️') 
+                ? "bg-red-50 text-red-600 border-red-100" 
+                : "bg-blue-50 text-blue-600 border-blue-100"
+            )}
           >
             {warningMessage}
           </motion.p>

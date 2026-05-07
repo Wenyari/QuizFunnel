@@ -9,9 +9,11 @@ import NavigationButtons from './NavigationButtons';
 import { StepLayout } from '@/components/quiz/StepLayout';
 import { OptionList } from '@/components/quiz/OptionList';
 import { Step4Analysis } from '@/components/quiz/Step4Analysis';
+import { Step5Result } from '@/components/quiz/Step5Result';
 import { InputQuestion } from '@/components/quiz/InputQuestion';
 import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 import { cn } from '@/utils/cn';
+import { validateField } from '@/utils/validation';
 
 const variants = {
   initial: (dir: number) => ({ x: dir * 60, opacity: 0 }),
@@ -28,17 +30,17 @@ const variants = {
 };
 
 const getPhaseInfo = (stepId: string) => {
-  if (['gender', 'goal'].includes(stepId)) return '基础信息';
-  if (['age', 'height', 'weight', 'targetWeight'].includes(stepId)) return '身体数据';
-  if (['activity'].includes(stepId)) return '运动频率';
-  return '正在处理';
+  if (['gender', 'goal'].includes(stepId)) return 'Basic Info';
+  if (['age', 'height', 'weight', 'targetWeight'].includes(stepId)) return 'Body Data';
+  if (['activity'].includes(stepId)) return 'Activity Level';
+  return 'Processing';
 };
 
 const getMotivationalText = (percent: number) => {
-  if (percent <= 20) return "良好的开始是成功的一半 ✨";
-  if (percent <= 50) return "您的专属健康档案正在建立中...";
-  if (percent <= 80) return "就快到了！只剩最后几步 🏃";
-  return "马上完成啦！🎉";
+  if (percent <= 20) return "A great start — you're on your way! ✨";
+  if (percent <= 50) return "Building your personalized health profile...";
+  if (percent <= 80) return "Almost there! Just a few more steps 🏃";
+  return "You're all done! 🎉";
 };
 
 export default function QuizPage() {
@@ -95,10 +97,19 @@ export default function QuizPage() {
     return config.field ? (fieldMap[config.field] ?? '') : '';
   };
 
+  const currentFieldValue = getSelectedValue(stepConfig);
+  const validationError = stepConfig.type === 'input' 
+    ? validateField(currentStepId, currentFieldValue, unit) 
+    : '';
+  const isHardError = validationError.startsWith('⚠️');
+
   // ── 渲染业务内容 ─────────────────────────────
   const renderContent = () => {
     if (stepConfig.type === 'analysis') {
       return <Step4Analysis />;
+    }
+    if (stepConfig.type === 'result') {
+      return <Step5Result />;
     }
 
     const options = stepConfig.dynamicOptions
@@ -137,11 +148,13 @@ export default function QuizPage() {
   };
 
   const isAnalysis = stepConfig.type === 'analysis';
+  const isResult = stepConfig.type === 'result';
+  const hideHeader = isAnalysis || isResult;
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
-      {/* 顶部进度条（分析页隐藏） */}
-      {!isAnalysis && (
+      {/* 顶部进度条（分析页/结果页隐藏） */}
+      {!hideHeader && (
         <div className="pt-6 relative flex flex-col items-center w-full">
           <div className="absolute left-6 top-2">
             <button
@@ -197,7 +210,7 @@ export default function QuizPage() {
                 <NavigationButtons
                   nextStep={stepConfig.nextStep}
                   showNext={stepConfig.type === 'input'}
-                  disableNext={!getSelectedValue(stepConfig)}
+                  disableNext={!currentFieldValue || isHardError}
                 />
               )}
             </div>

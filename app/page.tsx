@@ -3,18 +3,18 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-black">
-      <div className="text-center flex flex-col items-center">
-        <h1 className="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">
-          健康测评获客漏斗
+      <div className="text-center flex flex-col items-center p-6">
+        <h1 className="text-4xl font-bold font-outfit mb-4 text-gray-900 dark:text-white tracking-tight">
+          Personalized Health Quiz
         </h1>
-        <p className="text-gray-500 mb-8 max-w-sm">
-          定制您的专属健康与健身计划，只需 1 分钟即可获取个性化报告。
+        <p className="text-gray-500 mb-8 max-w-sm text-lg">
+          Tailor your personalized health and fitness plan. Get your custom report in just 1 minute.
         </p>
         <Link 
           href="/quiz"
-          className="px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-transform"
+          className="px-10 py-4 bg-primary text-white rounded-full font-bold font-outfit text-lg hover:scale-105 active:scale-95 transition-transform shadow-lg shadow-primary/25"
         >
-          开始测试
+          Start Quiz
         </Link>
       </div>
     </div>

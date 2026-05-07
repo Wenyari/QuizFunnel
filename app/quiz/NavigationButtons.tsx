@@ -46,7 +46,7 @@ export default function NavigationButtons({
             : 'bg-primary hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl shadow-primary/20'
         )}
       >
-        下一步
+        Next
       </button>
     </div>
   );

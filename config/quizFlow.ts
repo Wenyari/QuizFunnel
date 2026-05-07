@@ -116,7 +116,7 @@ function getTargetWeightOptions(ctx: StepContext): QuizOption[] {
 
 function getTargetWeightSubtitle(ctx: StepContext): string {
   const heightNum = Number(ctx.height);
-  if (!heightNum) return '请选择您希望达到的目标体重';
+  if (!heightNum) return 'Enter your target weight';
 
   const heightM =
     ctx.unit === 'metric' ? heightNum / 100 : heightNum * 0.0254;
@@ -124,11 +124,11 @@ function getTargetWeightSubtitle(ctx: StepContext): string {
   const maxKg = 24.9 * heightM * heightM;
 
   if (ctx.unit === 'metric') {
-    return `基于您的身高，健康体重参考范围约为 ${Math.round(minKg)}–${Math.round(maxKg)} kg`;
+    return `Based on your height, a healthy weight range is approx. ${Math.round(minKg)}–${Math.round(maxKg)} kg`;
   }
   const minLbs = minKg / 0.453592;
   const maxLbs = maxKg / 0.453592;
-  return `基于您的身高，健康体重参考范围约为 ${Math.round(minLbs)}–${Math.round(maxLbs)} lbs`;
+  return `Based on your height, a healthy weight range is approx. ${Math.round(minLbs)}–${Math.round(maxLbs)} lbs`;
 }
 
 // ─────────────────────────────────────────────
@@ -136,31 +136,31 @@ function getTargetWeightSubtitle(ctx: StepContext): string {
 // ─────────────────────────────────────────────
 
 export const quizFlow: QuizStep[] = [
-  // ── Step 1a: 性别 ──────────────────────────
+  // ── Step 1a: Gender ──────────────────────────
   {
     id: 'gender',
     type: 'single_choice',
-    title: '您的性别是？',
-    subtitle: '帮助我们为您生成更精准的健康方案',
+    title: 'What is your gender?',
+    subtitle: 'Helps us build a more accurate health profile for you',
     field: 'gender',
     options: [
-      { label: '男性', value: 'male', emoji: '♂️' },
-      { label: '女性', value: 'female', emoji: '♀️' },
+      { label: 'Male', value: 'male', emoji: '♂️' },
+      { label: 'Female', value: 'female', emoji: '♀️' },
     ],
     nextStep: 'goal',
   },
 
-  // ── Step 1b: 健身目标 ──────────────────────
+  // ── Step 1b: Fitness goal ──────────────────────
   {
     id: 'goal',
     type: 'single_choice',
-    title: '您的健身目标是？',
-    subtitle: '我们将根据您的目标优化训练与饮食计划',
+    title: 'What is your fitness goal?',
+    subtitle: "We'll tailor your training and nutrition plan accordingly",
     field: 'goal',
     options: [
-      { label: '减脂瘦身', value: 'lose_weight', emoji: '🔥' },
-      { label: '增肌塑形', value: 'gain_muscle', emoji: '💪' },
-      { label: '维持体型', value: 'shape_body', emoji: '⚖️' },
+      { label: 'Lose Weight', value: 'lose_weight', emoji: '🔥' },
+      { label: 'Build Muscle', value: 'gain_muscle', emoji: '💪' },
+      { label: 'Stay in Shape', value: 'shape_body', emoji: '⚖️' },
     ],
     prevStep: 'gender',
     nextStep: 'age',
@@ -168,74 +168,81 @@ export const quizFlow: QuizStep[] = [
 
 
 
-  // ── Step 2b: 年龄 ──────────────────────────
+  // ── Step 2b: Age ──────────────────────────
   {
     id: 'age',
     type: 'input',
-    title: '您的具体年龄是？',
-    subtitle: '不同年龄阶段的代谢与训练策略有所不同',
+    title: 'How old are you?',
+    subtitle: 'Metabolism and training strategies differ across age groups',
     field: 'age',
     prevStep: 'goal',
     nextStep: 'height',
   },
 
-  // ── Step 2c: 身高（依赖 unit）──────────────
+  // ── Step 2c: Height ──────────────────────────
   {
     id: 'height',
     type: 'input',
-    title: '您的身高是？',
-    subtitle: '用于计算您的基础代谢率（BMR）与理想体重',
+    title: 'What is your height?',
+    subtitle: 'Used to calculate your Basal Metabolic Rate (BMR) and ideal weight',
     field: 'height',
     prevStep: 'age',
     nextStep: 'weight',
   },
 
-  // ── Step 2d: 当前体重（依赖 unit）──────────
+  // ── Step 2d: Current weight ──────────────────────
   {
     id: 'weight',
     type: 'input',
-    title: '您目前的体重是？',
-    subtitle: '我们对您的数据保密，仅用于生成专属计划',
+    title: 'What is your current weight?',
+    subtitle: 'Your data is private and used only to build your personalized plan',
     field: 'weight',
     prevStep: 'height',
     nextStep: 'targetWeight',
   },
 
-  // ── Step 2e: 目标体重（BMI 过滤）──────────
+  // ── Step 2e: Target weight ──────────────────────
   {
     id: 'targetWeight',
     type: 'input',
-    title: '您的目标体重是？',
+    title: 'What is your target weight?',
     field: 'targetWeight',
     dynamicSubtitle: getTargetWeightSubtitle,
     prevStep: 'weight',
     nextStep: 'activity',
   },
 
-  // ── Step 3: 运动频率 ────────────────────────
+  // ── Step 3: Activity level ────────────────────────
   {
     id: 'activity',
     type: 'single_choice',
-    title: '您平时的运动频率是？',
-    subtitle: '如实填写可帮助我们计算每日总消耗热量（TDEE）',
+    title: 'How active are you?',
+    subtitle: 'This helps us calculate your Total Daily Energy Expenditure (TDEE)',
     field: 'activityLevel',
     options: [
-      { label: '几乎不运动（久坐办公）', value: 'sedentary', emoji: '🛋️' },
-      { label: '每周 1–2 次轻度运动', value: 'lightly_active', emoji: '🚶' },
-      { label: '每周 3–5 次中度运动', value: 'moderately_active', emoji: '🏃' },
-      { label: '每周 6–7 次高强度训练', value: 'very_active', emoji: '🏋️' },
-      { label: '每天高强度训练或体力劳动', value: 'super_active', emoji: '⚡' },
+      { label: 'Sedentary (desk job, little exercise)', value: 'sedentary', emoji: '🛋️' },
+      { label: 'Light (1–2 workouts/week)', value: 'lightly_active', emoji: '🚶' },
+      { label: 'Moderate (3–5 workouts/week)', value: 'moderately_active', emoji: '🏃' },
+      { label: 'Active (6–7 intense sessions/week)', value: 'very_active', emoji: '🏋️' },
+      { label: 'Very Active (intense daily training or physical job)', value: 'super_active', emoji: '⚡' },
     ],
     prevStep: 'targetWeight',
     nextStep: 'analysis',
   },
 
-  // ── Step 4: 分析加载（自动推进） ───────────
+  // ── Step 4: Analysis loading (auto-advance) ───────────
   {
     id: 'analysis',
     type: 'analysis',
-    title: '正在生成您的专属方案...',
+    title: 'Generating your personalized plan...',
     nextStep: 'result',
+  },
+
+  // ── Step 5: Result & Paywall ───────────
+  {
+    id: 'result',
+    type: 'result',
+    title: 'Your Personalized Health Plan is Ready',
   },
 ];
 
