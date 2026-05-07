@@ -9,17 +9,17 @@
 - **ProgressBar (`components/ui/ProgressBar.tsx`)**: 顶部步骤进度指示器。
 
 ## ToDo List
-- [ ] 1. **实现 Button 组件**
-  - [ ] 定义 `variant` (primary, secondary)。
-  - [ ] 使用 Framer Motion 的 `<motion.button>` 实现按压反馈 (`whileHover`, `whileTap`)。
-- [ ] 2. **实现 Option Card 组件**
-  - [ ] 支持传入 `selected` 状态，并动态附加对应的 Tailwind Classes (通过 `clsx` / `tailwind-merge`)。
-- [ ] 3. **实现 Input 组件**
-  - [ ] 添加错误状态 `hasError` 及下方的错误提示信息文案。
-  - [ ] 结合 Framer Motion 对 `hasError` 为 `true` 时触发水平震动 (`x: [-5, 5, -5, 5, 0]`)。
-- [ ] 4. **实现 ProgressBar 组件**
-  - [ ] 接收当前进度百分比 `value`。
-  - [ ] 使用 `<motion.div>` 使得进度条增长时具有平滑的过渡效果。
-- [ ] 5. **UI 走查与测试**
-  - [ ] 在单独的测试页面 (如 `/test-ui`) 挂载所有组件。
-  - [ ] 测试响应式尺寸和深浅模式（若需要）的 Tailwind 表现。
+- [x] 1. **实现 Button 组件**
+  - [x] 定义 `variant` (primary, secondary)。
+  - [x] 使用 Framer Motion 的 `<motion.button>` 实现按压反馈 (`whileHover`, `whileTap`)。
+- [x] 2. **实现 Option Card 组件**
+  - [x] 支持传入 `selected` 状态，并动态附加对应的 Tailwind Classes (通过 `clsx` / `tailwind-merge`)。
+- [x] 3. **实现 Input 组件**
+  - [x] 添加错误状态 `hasError` 及下方的错误提示信息文案。
+  - [x] 结合 Framer Motion 对 `hasError` 为 `true` 时触发水平震动 (`x: [-5, 5, -5, 5, 0]`)。
+- [x] 4. **实现 ProgressBar 组件**
+  - [x] 接收当前进度百分比 `value`。
+  - [x] 使用 `<motion.div>` 使得进度条增长时具有平滑的过渡效果。
+- [x] 5. **UI 走查与测试**
+  - [x] 在单独的测试页面 (如 `/test-ui`) 挂载所有组件。
+  - [x] 测试响应式尺寸和深浅模式（若需要）的 Tailwind 表现。

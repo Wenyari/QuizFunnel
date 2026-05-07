@@ -8,16 +8,16 @@
 - **纯函数计算 (`utils/calculation.ts`)**: 包含 BMI 计算、基于目标的预测耗时（如：每周减重 0.5kg，计算达到 targetWeight 的周数）。
 
 ## ToDo List
-- [ ] 1. **实现 Zustand Store**
-  - [ ] 定义 State 接口 (包含性别, 目标, 单位, 年龄, 身高, 体重, 目标体重, 频率, 动画方向等)。
-  - [ ] 定义 Actions (如 `setField`, `setDirection`)。
-  - [ ] 引入并配置 `persist` 中间件，存储到 `localStorage`。
-- [ ] 2. **实现 Zod Schema**
-  - [ ] 创建 `bodyDataSchema` 包含年龄、身高、体重、目标体重的校验。
-  - [ ] 针对公制/英制（Metric/Imperial）考虑校验范围的转换或分离 Schema。
-- [ ] 3. **实现计算工具函数**
-  - [ ] 编写 `calculateBMI(weight, height, unit)` 并附带边界测试。
-  - [ ] 编写 `calculateTargetDate(currentWeight, targetWeight, goal)` 函数推算目标日期。
-- [ ] 4. **模块独立测试**
-  - [ ] 编写简单的单元测试 (Jest/Vitest) 或在控制台验证 `calculation` 与 `validation` 逻辑。
-  - [ ] 验证 Store 在本地浏览器控制台挂载后持久化功能是否正常。
+- [x] 1. **实现 Zustand Store**
+  - [x] 定义 State 接口 (包含性别, 目标, 单位, 年龄, 身高, 体重, 目标体重, 频率, 动画方向等)。
+  - [x] 定义 Actions (如 `setField`, `setDirection`)。
+  - [x] 引入并配置 `persist` 中间件，存储到 `localStorage`。
+- [x] 2. **实现 Zod Schema**
+  - [x] 创建 `bodyDataSchema` 包含年龄、身高、体重、目标体重的校验。
+  - [x] 针对公制/英制（Metric/Imperial）考虑校验范围的转换或分离 Schema。
+- [x] 3. **实现计算工具函数**
+  - [x] 编写 `calculateBMI(weight, height, unit)` 并附带边界测试。
+  - [x] 编写 `calculateTargetDate(currentWeight, targetWeight, goal)` 函数推算目标日期。
+- [x] 4. **模块独立测试**
+  - [x] 编写简单的单元测试 (Jest/Vitest) 或在控制台验证 `calculation` 与 `validation` 逻辑。
+  - [x] 验证 Store 在本地浏览器控制台挂载后持久化功能是否正常。

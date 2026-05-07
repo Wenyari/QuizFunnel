@@ -7,6 +7,7 @@ export type Unit = 'metric' | 'imperial';
 export type ActivityLevel = 'sedentary' | 'lightly_active' | 'moderately_active' | 'very_active' | 'super_active' | '';
 
 export interface QuizState {
+  currentStepId: string;
   gender: Gender;
   goal: Goal;
   unit: Unit;
@@ -19,12 +20,14 @@ export interface QuizState {
 }
 
 export interface QuizActions {
+  setCurrentStepId: (id: string) => void;
   setField: <K extends keyof QuizState>(field: K, value: QuizState[K]) => void;
   setDirection: (direction: number) => void;
   reset: () => void;
 }
 
 const initialState: QuizState = {
+  currentStepId: '1',
   gender: '',
   goal: '',
   unit: 'metric',
@@ -40,6 +43,7 @@ export const useQuizStore = create<QuizState & QuizActions>()(
   persist(
     (set) => ({
       ...initialState,
+      setCurrentStepId: (id) => set({ currentStepId: id }),
       setField: (field, value) => set((state) => ({ ...state, [field]: value })),
       setDirection: (direction) => set({ direction }),
       reset: () => set(initialState),

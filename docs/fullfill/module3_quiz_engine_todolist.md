@@ -8,16 +8,16 @@
 - **动态分发器 (`app/quiz/[step]/page.tsx`)**: 读取 URL 参数，查找 `quizFlow` 配置，根据 `type` 渲染对应业务视图。
 
 ## ToDo List
-- [ ] 1. **定义问卷配置表**
-  - [ ] 在 `config/quizFlow.ts` 中定义 Step 1-3 的结构（基础信息、身体数据、频率）。
-- [ ] 2. **实现路由动画容器 (Layout)**
-  - [ ] 引入 `<AnimatePresence mode="wait">`。
-  - [ ] 使用 `<motion.div>` 作为页面容器，接收 `custom={direction}` 决定进出场初始位置。
-- [ ] 3. **处理全局前进/后退逻辑**
-  - [ ] 监听组件的 Next/Prev 点击，调用 Store 设置对应的 `direction` (1 或 -1)。
-  - [ ] 解决浏览器自带后退按钮的监听问题（如使用 `next/navigation` 的特性或 `popstate`）。
-- [ ] 4. **实现动态分发器 (Dispatcher)**
-  - [ ] 在 `[step]/page.tsx` 中解析 `params.step`。
-  - [ ] 若 Step 不存在，重定向到起点。
-- [ ] 5. **流转连通性测试**
-  - [ ] 使用纯文本或假组件充当 Step 1-3，测试点击“下一步”、“上一步”时页面的 URL 变化和滑动方向是否符合直觉。
+- [x] 1. **定义问卷配置表**
+  - [x] 在 `config/quizFlow.ts` 中定义 Step 1-3 的结构（基础信息、身体数据、频率）。
+- [x] 2. **实现路由动画容器 (Layout)**
+  - [x] 引入 `<AnimatePresence mode="wait">`。
+  - [x] 使用 `<motion.div>` 作为页面容器，接收 `custom={direction}` 决定进出场初始位置。
+- [x] 3. **处理全局前进/后退逻辑**
+  - [x] 监听组件的 Next/Prev 点击，调用 Store 设置对应的 `direction` (1 或 -1)。
+  - [x] 解决浏览器自带后退按钮的监听问题（如使用 `next/navigation` 的特性或 `popstate`）。
+- [x] 4. **实现动态分发器 (Dispatcher)**
+  - [x] 在 `[step]/page.tsx` 中解析 `params.step`。
+  - [x] 若 Step 不存在，重定向到起点。
+- [x] 5. **流转连通性测试**
+  - [x] 使用纯文本或假组件充当 Step 1-3，测试点击“下一步”、“上一步”时页面的 URL 变化和滑动方向是否符合直觉。
