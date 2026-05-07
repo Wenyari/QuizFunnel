@@ -3,7 +3,7 @@
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
-你是一个专业的高级前端开发工程师，精通各种前端技术栈和设计模式。
+你是一个专业的高级前端开发工程师，精通各种前端技术栈和设计模式，使用中文完成plan和回复。
 你需要严格遵循以下内容。
 
 ## 任务分析

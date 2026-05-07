@@ -5,6 +5,7 @@ export type Gender = 'male' | 'female' | '';
 export type Goal = 'lose_weight' | 'gain_muscle' | 'shape_body' | '';
 export type Unit = 'metric' | 'imperial';
 export type ActivityLevel = 'sedentary' | 'lightly_active' | 'moderately_active' | 'very_active' | 'super_active' | '';
+export type Theme = 'ocean' | 'coral' | 'mint';
 
 export interface QuizState {
   currentStepId: string;
@@ -17,6 +18,7 @@ export interface QuizState {
   targetWeight: string;
   activityLevel: ActivityLevel;
   direction: number;
+  theme: Theme;
 }
 
 export interface QuizActions {
@@ -27,7 +29,7 @@ export interface QuizActions {
 }
 
 const initialState: QuizState = {
-  currentStepId: '1',
+  currentStepId: 'gender',
   gender: '',
   goal: '',
   unit: 'metric',
@@ -37,6 +39,7 @@ const initialState: QuizState = {
   targetWeight: '',
   activityLevel: '',
   direction: 1,
+  theme: 'ocean',
 };
 
 export const useQuizStore = create<QuizState & QuizActions>()(
@@ -53,4 +56,3 @@ export const useQuizStore = create<QuizState & QuizActions>()(
     }
   )
 );
-
